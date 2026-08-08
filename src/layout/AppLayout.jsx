@@ -19,11 +19,11 @@ const AppLayout = () => {
 
   return (
     <InAppNotificationProvider>
-      <div style={{ backgroundColor: theme.base?.background, minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ backgroundColor: theme.base?.background, minHeight: '100vh', display: 'flex', flexDirection: 'column', width: '100%', maxWidth: '100%', overflowX: 'hidden' }}>
         <TopBar />
-        <div style={{ flex: 1, minHeight: 0 }}>
+        <div style={{ flex: 1, minHeight: 0, minWidth: 0, width: '100%', overflowX: 'hidden' }}>
           <Grid style={{ minHeight: '100%' }}>
-            <div style={{ gridColumn: '1 / -1', padding: width <= 640 ? 12 : width <= 1024 ? 16 : 24, minHeight: '100%' }}>
+            <div style={{ gridColumn: '1 / -1', padding: width <= 640 ? 12 : width <= 1024 ? 16 : 24, minHeight: '100%', minWidth: 0, width: '100%', boxSizing: 'border-box' }}>
               <Routes>
                 <Route path="/" element={<Navigate to="/dashboard" replace />} />
                 <Route path="/dashboard" element={<DashboardPage />} />

@@ -4,11 +4,21 @@ import { createPortal } from 'react-dom'
 import { useTheme } from '../../providers/ThemeProvider'
 import IconComp from '../icon/IconComp.jsx'
 import Button from '../button/Button'
+import useWindowSize from '../../hooks/useWindowSize'
 
 const SideSheet = ({ open, onClose, width = '35vw', title, children }) => {
   const { theme } = useTheme()
+  const { width: windowWidth } = useWindowSize()
   const [visible, setVisible] = useState(open)
   const [slideIn, setSlideIn] = useState(false)
+
+  const panelWidth = windowWidth <= 440
+    ? '96vw'
+    : windowWidth <= 640
+      ? '88vw'
+      : windowWidth <= 900
+        ? '60vw'
+        : width
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
@@ -48,7 +58,7 @@ const SideSheet = ({ open, onClose, width = '35vw', title, children }) => {
           top: 0,
           right: 0,
           height: '100%',
-          width,
+          width: panelWidth,
           backgroundColor: theme.panel?.background,
           color: theme.text.primary,
           boxShadow: `-10px 0 40px ${theme?.base?.primary ?? '#0d6efd'}1A, -4px 0 16px rgba(0,0,0,0.2)`,

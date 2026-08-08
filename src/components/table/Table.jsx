@@ -16,11 +16,14 @@ function PaginationControls({
   borderColor,
   fg,
   cardBg,
+  isMobile,
 }) {
   const controlStyle = {
     display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: isMobile ? 'column' : 'row',
+    justifyContent: isMobile ? 'flex-start' : 'space-between',
+    alignItems: isMobile ? 'flex-start' : 'center',
+    gap: isMobile ? 8 : 0,
     marginTop: 12,
     paddingTop: 8,
     borderTop: `1px solid ${borderColor}`,
@@ -154,7 +157,7 @@ export default function Table({
 
   if (isMobile) {
     return (
-      <div className={className} style={{ display: 'block' }}>
+      <div className={className} style={{ display: 'block', width: '100%', overflow: 'hidden' }}>
         {pagedData.map((row) => (
           <div
             key={row[rowKey] ?? JSON.stringify(row)}
@@ -167,12 +170,15 @@ export default function Table({
               padding: 12,
               marginBottom: 12,
               cursor: onRowClick ? 'pointer' : undefined,
+              boxSizing: 'border-box',
+              width: '100%',
+              overflow: 'hidden',
             }}
           >
             {columns.map((col) => (
-              <div key={col.key} style={{ display: 'flex', padding: '6px 0', alignItems: 'flex-start' }}>
-                <div style={{ minWidth: 110, fontWeight: 600, opacity: 0.9 }}>{col.label}</div>
-                <div style={{ flex: 1 }}>{col.render ? col.render(row) : (row[col.key] ?? '')}</div>
+              <div key={col.key} style={{ display: 'flex', padding: '6px 0', alignItems: 'flex-start', minWidth: 0 }}>
+                <div style={{ width: 100, flexShrink: 0, fontWeight: 600, opacity: 0.9, fontSize: 13 }}>{col.label}</div>
+                <div style={{ flex: 1, minWidth: 0, overflow: 'hidden', wordBreak: 'break-word', overflowWrap: 'anywhere' }}>{col.render ? col.render(row) : (row[col.key] ?? '')}</div>
               </div>
             ))}
           </div>
@@ -190,6 +196,7 @@ export default function Table({
             borderColor={borderColor}
             fg={fg}
             cardBg={cardBg}
+            isMobile={isMobile}
           />
         )}
       </div>
@@ -198,33 +205,35 @@ export default function Table({
 
   return (
     <>
-      <table className={className} style={{ width: '100%', borderCollapse: 'collapse', color: fg }}>
-        <thead>
-          <tr>
-            {columns.map((col) => (
-              <th key={col.key} style={{ textAlign: col.align ?? 'left', padding: 8 }}>
-                {col.label}
-              </th>
-            ))}
-          </tr>
-        </thead>
-
-        <tbody>
-          {pagedData.map((row) => (
-            <tr
-              key={row[rowKey] ?? JSON.stringify(row)}
-              onClick={onRowClick ? () => onRowClick(row) : undefined}
-              style={{ borderBottom: `1px solid ${borderColor}`, cursor: onRowClick ? 'pointer' : undefined }}
-            >
+      <div style={{ width: '100%', overflowX: 'auto', minWidth: 0, boxSizing: 'border-box' }}>
+        <table className={className} style={{ width: '100%', borderCollapse: 'collapse', color: fg }}>
+          <thead>
+            <tr>
               {columns.map((col) => (
-                <td key={col.key} style={{ padding: 8, textAlign: col.align ?? 'left' }}>
-                  {col.render ? col.render(row) : (row[col.key] ?? '')}
-                </td>
+                <th key={col.key} style={{ textAlign: col.align ?? 'left', padding: 8 }}>
+                  {col.label}
+                </th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {pagedData.map((row) => (
+              <tr
+                key={row[rowKey] ?? JSON.stringify(row)}
+                onClick={onRowClick ? () => onRowClick(row) : undefined}
+                style={{ borderBottom: `1px solid ${borderColor}`, cursor: onRowClick ? 'pointer' : undefined }}
+              >
+                {columns.map((col) => (
+                  <td key={col.key} style={{ padding: 8, textAlign: col.align ?? 'left' }}>
+                    {col.render ? col.render(row) : (row[col.key] ?? '')}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       {shouldShowPagination && (
         <PaginationControls
@@ -238,6 +247,7 @@ export default function Table({
           borderColor={borderColor}
           fg={fg}
           cardBg={cardBg}
+          isMobile={isMobile}
         />
       )}
     </>

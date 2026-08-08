@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useAuth } from '../providers/AuthProvider'
 import { useTheme } from '../providers/ThemeProvider'
+import useWindowSize from '../hooks/useWindowSize'
 import { login as loginApi } from '../services/authService'
 import Card from '../components/card/Card'
 import Input from '../components/input/Input'
@@ -10,6 +11,7 @@ import ErrorMessage from '../components/common/ErrorMessage'
 const LoginPage = () => {
   const { login } = useAuth()
   const { theme } = useTheme()
+  const { width: windowWidth } = useWindowSize()
   const [usernameOrEmail, setUsernameOrEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
@@ -54,7 +56,7 @@ const LoginPage = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 24,
+        padding: windowWidth <= 440 ? 12 : 24,
         background: baseBg,
         color: baseFg,
       }}
@@ -77,7 +79,7 @@ const LoginPage = () => {
           background: cardBg,
           border: `1px solid ${cardBorder}`,
           boxShadow: cardShadow,
-          padding: '36px 34px',
+          padding: windowWidth <= 440 ? '24px 20px' : '36px 34px',
           borderRadius: 24,
         }}
       >
