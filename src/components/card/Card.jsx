@@ -20,12 +20,15 @@ const Card = ({ title, subtitle, children, footer, actions, className = '', styl
     padding: 16,
     boxShadow,
     ...style,
+    boxSizing: 'border-box',
+    maxWidth: '100%',
+    minWidth: 0,
   }
 
   return (
     <div className={`card ${className}`} style={baseStyle} {...rest}>
       {(title || subtitle || actions) && (
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12, flexWrap: 'wrap', gap: 8 }}>
           <div>
             {title && <div style={{ fontSize: 16, fontWeight: 600 }}>{title}</div>}
             {subtitle && <div style={{ fontSize: 12, opacity: 0.8, marginTop: 4 }}>{subtitle}</div>}
@@ -34,7 +37,7 @@ const Card = ({ title, subtitle, children, footer, actions, className = '', styl
         </div>
       )}
 
-      <div>{children}</div>
+      <div style={{ width: '100%', minWidth: 0, boxSizing: 'border-box' }}>{children}</div>
 
       {footer && <div style={{ marginTop: 12, borderTop: `1px solid ${lineColor}`, paddingTop: 8 }}>{footer}</div>}
     </div>

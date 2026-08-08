@@ -87,7 +87,7 @@ export default function TopBar() {
         style={{
           display: 'flex',
           alignItems: 'center',
-          padding: '8px 16px',
+          padding: width <= 440 ? '6px 10px' : '8px 16px',
           background: bg,
           borderBottom: `1px solid ${border}`,
           color: fg,
@@ -96,6 +96,8 @@ export default function TopBar() {
           zIndex: 60,
           backdropFilter: 'saturate(140%) blur(6px)',
           WebkitBackdropFilter: 'saturate(140%) blur(6px)',
+          minWidth: 0,
+          overflow: 'hidden',
         }}
       >
        
@@ -165,7 +167,9 @@ export default function TopBar() {
 
             {bellOpen && (
               <div style={{
-                position: 'absolute', top: '110%', right: 0, width: 320,
+                position: 'fixed', top: 56, right: 8, left: 8,
+                maxWidth: 320,
+                marginLeft: 'auto',
                 background: panelBg, border: `1px solid ${border}`,
                 borderRadius: 12, boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
                 zIndex: 999, overflow: 'hidden',

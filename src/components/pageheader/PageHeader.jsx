@@ -1,13 +1,17 @@
 import React from 'react'
 import { useTheme } from '../../providers/ThemeProvider'
+import useWindowSize from '../../hooks/useWindowSize'
 
 const PageHeader = ({ title, subtitle, actions }) => {
   const { theme } = useTheme()
+  const { width: windowWidth } = useWindowSize()
   const styles = {
     container: {
       display: 'flex',
+      flexDirection: windowWidth <= 440 && actions ? 'column' : 'row',
       justifyContent: 'space-between',
-      alignItems: 'center',
+      alignItems: windowWidth <= 440 && actions ? 'flex-start' : 'center',
+      gap: windowWidth <= 440 && actions ? 8 : 0,
       padding: '12px 0',
       borderBottom: `1px solid ${theme.pageheader?.border || theme.card?.border || 'rgba(255,255,255,0.12)'}`,
       marginBottom: 12,
