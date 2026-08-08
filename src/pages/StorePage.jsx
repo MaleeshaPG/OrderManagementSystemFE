@@ -110,8 +110,8 @@ export default function StorePage() {
     <div style={{ minHeight: '100%', display: 'grid', gap: 20 }}>
       <PageHeader title="Stores" subtitle="Manage store locations and managers." />
       <Card style={{ display: 'grid', gap: 20 }}>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center', justifyContent: 'space-between' }}>
-          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', width: '100%', maxWidth: 720 }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center', justifyContent: 'space-between', width: '100%', minWidth: 0, boxSizing: 'border-box' }}>
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', flex: '1 1 300px', width: '100%', maxWidth: 720, minWidth: 0, boxSizing: 'border-box' }}>
             <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search store" />
             <Select value={regionFilter} onChange={setRegionFilter} options={storeRegionOptions} />
           </div>

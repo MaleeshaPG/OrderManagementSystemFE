@@ -9,13 +9,16 @@ const Grid = ({ children, style: styleProp = {}, fullHeight = false }) => {
   else if (width <= 1024) gridTemplateColumns = 'repeat(8, 1fr)'
 
   const baseStyle = {
-    minWidth: '100%',
+    width: '100%',
+    maxWidth: '100%',
+    minWidth: 0,
     display: 'grid',
     gridTemplateColumns,
     alignContent: 'start',
     alignItems: 'start',
     gap: '12px',
     boxSizing: 'border-box',
+    overflow: 'hidden',
   }
 
   if (fullHeight) baseStyle.minHeight = '100vh'

@@ -57,6 +57,7 @@ const Modal = ({
 
   const calcWidth = () => {
     if (typeof width === 'number') return width
+    if (windowWidth <= 440) return '96%'
     if (windowWidth <= 640) return '92%'
     return width
   }
@@ -69,7 +70,7 @@ const Modal = ({
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: 9999,
-    padding: 24,
+    padding: windowWidth <= 440 ? 8 : 24,
     boxSizing: 'border-box',
   }
 
@@ -89,13 +90,13 @@ const Modal = ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '18px 20px',
+    padding: windowWidth <= 440 ? '12px 14px' : '18px 20px',
     borderBottom: `1px solid ${borderColor}`,
   }
 
   const bodyStyle = {
-    padding: 20,
-    maxHeight: '70vh',
+    padding: windowWidth <= 440 ? 14 : 20,
+    maxHeight: '80vh',
     overflow: 'auto',
   }
 

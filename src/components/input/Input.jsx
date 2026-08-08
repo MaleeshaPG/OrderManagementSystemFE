@@ -159,7 +159,7 @@ const Input = ({
     boxSizing: 'border-box',
   }
 
-  const outerStyle = { display: 'flex', flexDirection: 'column', width: '100%', padding: 2, alignSelf: 'end' }
+  const outerStyle = { display: 'flex', flexDirection: 'column', width: '100%', padding: 2, alignSelf: 'end', boxSizing: 'border-box', maxWidth: '100%', minWidth: 0 }
   const shouldShowLabel = Boolean(label) || reserveLabel
   const shouldShowErrorArea = !hideError && (Boolean(error) || reserveErrorSpace)
 

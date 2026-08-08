@@ -76,10 +76,12 @@ const Select = ({
   const selectedBg = theme?.button?.primary || '#0D6EFD'
   const selectedFg = theme?.button?.primary_foreground || '#fff'
 
-  const outerStyle = { display: 'flex', flexDirection: 'column', width: '100%', padding: 2, ...style }
+  const outerStyle = { display: 'flex', flexDirection: 'column', width: '100%', padding: 2, ...style, boxSizing: 'border-box', maxWidth: '100%' }
   const wrapperStyle = {
     position: 'relative',
-    minWidth: 220,
+    minWidth: 0,
+    width: '100%',
+    boxSizing: 'border-box',
   }
   const hasFocus = open || focused
   const inputStyle = {

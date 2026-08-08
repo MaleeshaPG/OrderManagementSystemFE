@@ -1,6 +1,7 @@
 import React from 'react'
 import { useApiResource } from '../hooks/useApiResource'
 import { useTheme } from '../providers/ThemeProvider'
+import useWindowSize from '../hooks/useWindowSize'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts'
 import IconComp from '../components/icon/IconComp'
 import Tag from '../components/tag/Tag'
@@ -107,6 +108,7 @@ function CustomTooltip({ active, payload, label }) {
 
 export default function DashboardPage() {
   const { theme } = useTheme()
+  const { width: windowWidth } = useWindowSize()
   const fg = theme?.text?.primary ?? theme?.base?.foreground ?? '#111'
   const muted = theme?.text?.muted ?? '#888'
   const primary = theme?.base?.primary ?? '#0D6EFD'
@@ -163,7 +165,7 @@ export default function DashboardPage() {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+          gridTemplateColumns: windowWidth <= 440 ? '1fr' : 'repeat(auto-fit, minmax(180px, 1fr))',
           gap: 16,
         }}
       >
@@ -177,7 +179,7 @@ export default function DashboardPage() {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          gridTemplateColumns: windowWidth <= 640 ? '1fr' : 'repeat(auto-fit, minmax(300px, 1fr))',
           gap: 20,
           alignItems: 'start',
         }}
